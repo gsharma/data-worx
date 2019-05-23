@@ -5,5 +5,6 @@ package com.github.dataworx.kafka;
  * 
  * @author gaurav
  */
-public final class ZookeeperServerDriver {
+public final class KafkaServer {
+
 }
