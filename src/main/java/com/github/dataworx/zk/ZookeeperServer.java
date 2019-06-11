@@ -1,4 +1,4 @@
-package com.github.dataworx.kafka;
+package com.github.dataworx.zk;
 
 import java.io.File;
 import java.io.IOException;
