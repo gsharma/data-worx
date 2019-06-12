@@ -22,7 +22,7 @@ public final class ZookeeperServer {
   private final AtomicBoolean running = new AtomicBoolean();
   private final String host;
   private final int port;
-  private final int maxConnections = 2;
+  private final int maxConnections;
   // private final int tickTime = 200;
   private final String logDirectoryName = "zkLogs";
   private final String snapshotDirectoryName = "zkSnapshots";
@@ -30,9 +30,10 @@ public final class ZookeeperServer {
   private File snapshotDirectory;
   private File logDirectory;
 
-  public ZookeeperServer(final String host, final int port) {
+  public ZookeeperServer(final String host, final int port, final int maxConnections) {
     this.host = host;
     this.port = port;
+    this.maxConnections = maxConnections;
   }
 
   public void init() {
@@ -64,6 +65,7 @@ public final class ZookeeperServer {
   public void tini() {
     if (running.compareAndSet(true, false)) {
       running.set(false);
+      // logger.debug(connectionFactory.getAllConnectionInfo(false));
       connectionFactory.shutdown();
       logger.debug("Zk snapshotDir:{}, files:{}", snapshotDirectory.getPath(),
           Arrays.deepToString(snapshotDirectory.list()));
