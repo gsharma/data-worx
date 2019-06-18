@@ -29,6 +29,7 @@ public final class ZookeeperServer {
   private ServerCnxnFactory connectionFactory;
   private File snapshotDirectory;
   private File logDirectory;
+  private ZooKeeperServer zkServer;
 
   public ZookeeperServer(final String host, final int port, final int maxConnections) {
     this.host = host;
@@ -44,7 +45,7 @@ public final class ZookeeperServer {
       } catch (IOException problem) {
       }
       try {
-        final ZooKeeperServer zkServer =
+        zkServer =
             new ZooKeeperServer(snapshotDirectory, logDirectory, ZooKeeperServer.DEFAULT_TICK_TIME);
         connectionFactory = NettyServerCnxnFactory.createFactory();
         connectionFactory.configure(new InetSocketAddress(host, port), maxConnections);
@@ -76,6 +77,10 @@ public final class ZookeeperServer {
       logger.info("Stopped ZookeeperServer at {}:{}, snapshotDirDeleted:{}, logDirDeleted:{}", host,
           port, snapshotDirDeleted, logDirDeleted);
     }
+  }
+
+  public ZooKeeperServer getServer() {
+    return zkServer;
   }
 
   private static boolean deleteDirectory(final File directory) {
