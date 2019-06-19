@@ -20,10 +20,11 @@ import org.apache.zookeeper.server.ZooKeeperServer;
 public final class ZookeeperServer {
   private static final Logger logger = LogManager.getLogger(ZookeeperServer.class.getSimpleName());
   private final AtomicBoolean running = new AtomicBoolean();
+  private final int serverId;
   private final String host;
   private final int port;
   private final int maxConnections;
-  // private final int tickTime = 200;
+  // private final int tickTime = 300;
   private final String logDirectoryName = "zkLogs";
   private final String snapshotDirectoryName = "zkSnapshots";
   private ServerCnxnFactory connectionFactory;
@@ -31,7 +32,8 @@ public final class ZookeeperServer {
   private File logDirectory;
   private ZooKeeperServer zkServer;
 
-  public ZookeeperServer(final String host, final int port, final int maxConnections) {
+  public ZookeeperServer(final int serverId, final String host, final int port, final int maxConnections) {
+    this.serverId = serverId;
     this.host = host;
     this.port = port;
     this.maxConnections = maxConnections;
@@ -47,6 +49,7 @@ public final class ZookeeperServer {
       try {
         zkServer =
             new ZooKeeperServer(snapshotDirectory, logDirectory, ZooKeeperServer.DEFAULT_TICK_TIME);
+        zkServer.setCreateSessionTrackerServerId(serverId);
         connectionFactory = NettyServerCnxnFactory.createFactory();
         connectionFactory.configure(new InetSocketAddress(host, port), maxConnections);
         connectionFactory.startup(zkServer);

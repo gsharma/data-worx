@@ -17,19 +17,19 @@ public final class ZookeeperServerTest {
   @Test
   public void testServerLifecycle() {
     QuorumPeerConfig.setReconfigEnabled(true);
-    final ZookeeperServer one = new ZookeeperServer("localhost", 9001, 2);
+    final ZookeeperServer one = new ZookeeperServer(1, "localhost", 9001, 2);
     one.init();
     assertTrue(one.isRunning());
     assertEquals("standalone", one.getServer().getState());
     assertEquals(0, one.getServer().getZxid());
 
-    final ZookeeperServer two = new ZookeeperServer("localhost", 9002, 2);
+    final ZookeeperServer two = new ZookeeperServer(2, "localhost", 9002, 2);
     two.init();
     assertTrue(two.isRunning());
     assertEquals("standalone", two.getServer().getState());
     assertEquals(0, two.getServer().getZxid());
 
-    final ZookeeperServer three = new ZookeeperServer("localhost", 9003, 2);
+    final ZookeeperServer three = new ZookeeperServer(3, "localhost", 9003, 2);
     three.init();
     assertTrue(three.isRunning());
     assertEquals("standalone", three.getServer().getState());
