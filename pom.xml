@@ -13,10 +13,11 @@
     <github.user.name>gsharma</github.user.name>
     <github.repo.name>data-worx</github.repo.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kafka.version>2.2.0</kafka.version>
+    <kafka.version>2.3.0</kafka.version>
     <zk.version>3.5.5</zk.version>
     <junit.version>4.12</junit.version>
-    <log4j.version>2.11.2</log4j.version>
+    <log4j.version>2.12.1</log4j.version>
+    <grpc.version>1.24.0</grpc.version>
     <javac.target>1.8</javac.target>
     <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -58,6 +59,21 @@
       <artifactId>zookeeper</artifactId>
       <type>jar</type>
       <version>${zk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty</artifactId>
+      <version>${grpc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-stub</artifactId>
+      <version>${grpc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+      <version>${grpc.version}</version>
     </dependency>
 
     <dependency>
